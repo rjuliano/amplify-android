@@ -109,9 +109,11 @@ public final class CodeGenerationInstrumentationTest {
         Amplify.API.query(
             PERSON_API_NAME,
             Person.class,
-            Person.LAST_NAME.eq("Daudelin")
-                .and(Person.FIRST_NAME.eq("David")
-                    .or(Person.FIRST_NAME.eq("Sarah"))),
+            Person.LAST_NAME.eq("Daudelin").and(
+                    Person.FIRST_NAME.eq("David").or(
+                            Person.FIRST_NAME.eq("Sarah")
+                    )
+            ),
             queryListener
         );
 
@@ -244,6 +246,7 @@ public final class CodeGenerationInstrumentationTest {
         Amplify.API.mutate(
                 PERSON_API_NAME,
                 Person.justId(person.getId()),
+                Person.LAST_NAME.eq("Daudelin"),
                 MutationType.DELETE,
                 deleteListener
         );

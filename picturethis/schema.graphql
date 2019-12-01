@@ -1,0 +1,20 @@
+enum GameStatus {
+  OPEN,
+  FULL,
+  ENDED
+}
+type User @model {
+  userId: ID!
+  currentGameId: Game @connection
+}
+type Game @model {
+  id: ID!
+  createdBy: User @connection
+  joinedBy: User @connection
+  status: GameStatus!
+  sender: User @connection
+  keyword: String
+  imageKey: String
+  guess: String
+  streakCount: Int
+}

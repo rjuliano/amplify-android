@@ -1,0 +1,196 @@
+# this is an auto generated file. This will be overwritten
+subscription OnCreateUser {
+  onCreateUser {
+    userId
+    currentGameId {
+      id
+      createdBy {
+        userId
+      }
+      joinedBy {
+        userId
+      }
+      status
+      sender {
+        userId
+      }
+      keyword
+      imageKey
+      guess
+      streakCount
+    }
+  }
+}
+subscription OnUpdateUser {
+  onUpdateUser {
+    userId
+    currentGameId {
+      id
+      createdBy {
+        userId
+      }
+      joinedBy {
+        userId
+      }
+      status
+      sender {
+        userId
+      }
+      keyword
+      imageKey
+      guess
+      streakCount
+    }
+  }
+}
+subscription OnDeleteUser {
+  onDeleteUser {
+    userId
+    currentGameId {
+      id
+      createdBy {
+        userId
+      }
+      joinedBy {
+        userId
+      }
+      status
+      sender {
+        userId
+      }
+      keyword
+      imageKey
+      guess
+      streakCount
+    }
+  }
+}
+subscription OnCreateGame {
+  onCreateGame {
+    id
+    createdBy {
+      userId
+      currentGameId {
+        id
+        status
+        keyword
+        imageKey
+        guess
+        streakCount
+      }
+    }
+    joinedBy {
+      userId
+      currentGameId {
+        id
+        status
+        keyword
+        imageKey
+        guess
+        streakCount
+      }
+    }
+    status
+    sender {
+      userId
+      currentGameId {
+        id
+        status
+        keyword
+        imageKey
+        guess
+        streakCount
+      }
+    }
+    keyword
+    imageKey
+    guess
+    streakCount
+  }
+}
+subscription OnUpdateGame {
+  onUpdateGame {
+    id
+    createdBy {
+      userId
+      currentGameId {
+        id
+        status
+        keyword
+        imageKey
+        guess
+        streakCount
+      }
+    }
+    joinedBy {
+      userId
+      currentGameId {
+        id
+        status
+        keyword
+        imageKey
+        guess
+        streakCount
+      }
+    }
+    status
+    sender {
+      userId
+      currentGameId {
+        id
+        status
+        keyword
+        imageKey
+        guess
+        streakCount
+      }
+    }
+    keyword
+    imageKey
+    guess
+    streakCount
+  }
+}
+subscription OnDeleteGame {
+  onDeleteGame {
+    id
+    createdBy {
+      userId
+      currentGameId {
+        id
+        status
+        keyword
+        imageKey
+        guess
+        streakCount
+      }
+    }
+    joinedBy {
+      userId
+      currentGameId {
+        id
+        status
+        keyword
+        imageKey
+        guess
+        streakCount
+      }
+    }
+    status
+    sender {
+      userId
+      currentGameId {
+        id
+        status
+        keyword
+        imageKey
+        guess
+        streakCount
+      }
+    }
+    keyword
+    imageKey
+    guess
+    streakCount
+  }
+}

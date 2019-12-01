@@ -1,0 +1,22 @@
+{
+  "Storage": {
+    "plugins": {
+      "AWSS3StoragePlugin": {
+        "Bucket": "picturethisbf73311a1041497daab3eb311088c859-dev",
+        "Region": "us-east-1"
+      }
+    }
+  },
+  "API": {
+    "plugins": {
+      "AWSAPIPlugin": {
+        "mygraphql": {
+          "Endpoint": "https://pzoz25f54fbqxobwew5opcxbkm.appsync-api.us-east-1.amazonaws.com/graphql",
+          "Region": "us-east-1",
+          "AuthorizationType": "API_KEY",
+          "ApiKey": "da2-3eha7ayvijdolcak6bmjqxxiie"
+        }
+      }
+    }
+  }
+}

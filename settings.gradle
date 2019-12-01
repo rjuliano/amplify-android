@@ -24,4 +24,5 @@ include ':aws-datastore'
 // Test Utilities and assets
 include ':testutils'
 include ':testmodels'
+include ':picturethis'
 
