@@ -102,13 +102,22 @@ public final class SQLiteTable {
     }
 
     private static SqliteDataType sqlTypeFromModelField(ModelField modelField) {
+        try {
+            // Convert from GraphQL type to direct SQL-equivalent
+            return TypeConverter.getSqlTypeForGraphQLType(modelField.getTargetType());
+        } catch (IllegalArgumentException exception) {
+            // Will be dealt with in a bit...
+        }
+
+        // There was no direct match for field's GraphQL type
+        // Match among the custom types
         if (modelField.isModel()) {
             return TypeConverter.getSqlTypeForJavaType(JavaFieldType.MODEL.stringValue());
         }
         if (modelField.isEnum()) {
             return TypeConverter.getSqlTypeForJavaType(JavaFieldType.ENUM.stringValue());
         }
-        return TypeConverter.getSqlTypeForGraphQLType(modelField.getTargetType());
+        return TypeConverter.getSqlTypeForJavaType(JavaFieldType.TYPE.stringValue());
     }
 
     /**

@@ -692,6 +692,7 @@ public final class SQLiteStorageAdapter implements LocalStorageAdapter {
                 preCompiledStatement.bindString(columnIndex, ((Model) fieldValue).getId());
                 break;
             case ENUM:
+            case TYPE:
                 preCompiledStatement.bindString(columnIndex, gson.toJson(fieldValue));
                 break;
             case DATE:
@@ -730,13 +731,19 @@ public final class SQLiteStorageAdapter implements LocalStorageAdapter {
                 final String columnName = column.getAliasedName();
                 final ModelField modelField = entry.getValue();
                 final String fieldGraphQlType = entry.getValue().getTargetType();
-                final JavaFieldType fieldJavaType;
-                if (modelField.isModel()) {
-                    fieldJavaType = JavaFieldType.MODEL;
-                } else if (modelField.isEnum()) {
-                    fieldJavaType = JavaFieldType.ENUM;
-                } else {
+                JavaFieldType fieldJavaType;
+                try {
+                    // Convert GraphQL type to direct Java-equivalent (if any)
                     fieldJavaType = TypeConverter.getJavaTypeForGraphQLType(fieldGraphQlType);
+                } catch (IllegalArgumentException exception) {
+                    // Otherwise it's a custom GraphQL type
+                    if (modelField.isModel()) {
+                        fieldJavaType = JavaFieldType.MODEL;
+                    } else if (modelField.isEnum()) {
+                        fieldJavaType = JavaFieldType.ENUM;
+                    } else {
+                        fieldJavaType = JavaFieldType.TYPE;
+                    }
                 }
 
                 final int columnIndex = cursor.getColumnIndexOrThrow(columnName);
@@ -768,10 +775,11 @@ public final class SQLiteStorageAdapter implements LocalStorageAdapter {
                         mapForModel.put(fieldName, deserializeModelFromRawMap(mapForInnerModel, innerModelType));
                         break;
                     case ENUM:
+                    case TYPE:
                         stringValueFromCursor = cursor.getString(columnIndex);
-                        Class<?> enumType = modelClass.getDeclaredField(fieldName).getType();
-                        Object enumValue = gson.getAdapter(enumType).fromJson(stringValueFromCursor);
-                        mapForModel.put(fieldName, enumValue);
+                        Class<?> objectType = modelClass.getDeclaredField(fieldName).getType();
+                        Object objectValue = gson.getAdapter(objectType).fromJson(stringValueFromCursor);
+                        mapForModel.put(fieldName, objectValue);
                         break;
                     case INTEGER:
                         mapForModel.put(fieldName, cursor.getInt(columnIndex));

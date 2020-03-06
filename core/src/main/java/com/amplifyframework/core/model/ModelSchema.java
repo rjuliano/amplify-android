@@ -119,7 +119,7 @@ public final class ModelSchema {
             final String modelPluralName = modelConfig != null && !modelConfig.pluralName().isEmpty()
                     ? modelConfig.pluralName()
                     : null;
-            final boolean hasOwnerAuthorization = modelConfig != null ? modelConfig.hasOwnerAuthorization() : false;
+            final boolean hasOwnerAuthorization = modelConfig != null && modelConfig.hasOwnerAuthorization();
 
             for (Annotation annotation : clazz.getAnnotations()) {
                 ModelIndex modelIndex = createModelIndex(annotation);
