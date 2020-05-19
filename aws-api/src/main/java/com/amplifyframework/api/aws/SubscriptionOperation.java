@@ -23,9 +23,7 @@ import com.amplifyframework.api.graphql.GraphQLOperation;
 import com.amplifyframework.api.graphql.GraphQLRequest;
 import com.amplifyframework.api.graphql.GraphQLResponse;
 import com.amplifyframework.core.Action;
-import com.amplifyframework.core.Amplify;
 import com.amplifyframework.core.Consumer;
-import com.amplifyframework.logging.Logger;
 
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
@@ -34,8 +32,6 @@ import okhttp3.OkHttpClient;
 
 @SuppressWarnings("unused")
 final class SubscriptionOperation<T> extends GraphQLOperation<T> {
-    private static final Logger LOG = Amplify.Logging.forNamespace("amplify:aws-api");
-
     private final String endpoint;
     private final OkHttpClient client;
     private final SubscriptionEndpoint subscriptionEndpoint;
@@ -108,7 +104,6 @@ final class SubscriptionOperation<T> extends GraphQLOperation<T> {
     @Override
     public void start() {
         executorService.submit(() -> {
-            LOG.debug("Requesting subscription: " + getRequest().getContent());
             subscriptionId = subscriptionEndpoint.requestSubscription(
                 getRequest(),
                 onSubscriptionStarted,

@@ -15,9 +15,9 @@
 
 package com.amplifyframework.logging;
 
-import android.text.TextUtils;
-import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
+
+import com.amplifyframework.testutils.LogOutputStream;
 
 import org.json.JSONObject;
 import org.junit.After;
@@ -27,11 +27,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowLog;
 
-import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -128,20 +125,5 @@ public class AndroidLoggingPluginTest {
         logger.warn("Uh oh, not great...");
 
         assertTrue(systemLog.getLines().isEmpty());
-    }
-
-    static final class LogOutputStream extends ByteArrayOutputStream {
-        private LogOutputStream() {}
-
-        @NonNull
-        List<String> getLines() {
-            final List<String> lines = new ArrayList<>();
-            for (String line : toString().split("[\\r\\n]+")) {
-                if (!TextUtils.isEmpty(line)) {
-                    lines.add(line);
-                }
-            }
-            return lines;
-        }
     }
 }

@@ -1,0 +1,11 @@
+V/amplify:aws-api: --> POST http://localhost:8080/animals
+V/amplify:aws-api: Content-Type: application/json; charset=utf-8
+V/amplify:aws-api: Content-Length: 20
+V/amplify:aws-api:
+V/amplify:aws-api: {"animals":["Goat"]}
+V/amplify:aws-api: --> END POST (20-byte body)
+V/amplify:aws-api: <-- 200 OK http://localhost:8080/animals (81ms)
+V/amplify:aws-api: Content-Length: 48
+V/amplify:aws-api:
+V/amplify:aws-api: {"animals":["Goat","Dat Donka-Donkey","Ze-Bro"]}
+V/amplify:aws-api: <-- END HTTP (48-byte body)

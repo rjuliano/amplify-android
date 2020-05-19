@@ -53,6 +53,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
  * Plugin implementation to be registered with Amplify API category.
@@ -111,6 +112,7 @@ public final class AWSApiPlugin extends ApiPlugin<Map<String, OkHttpClient>> {
 
         final InterceptorFactory interceptorFactory =
                 new AppSyncSigV4SignerInterceptorFactory(authProvider);
+        final HttpLoggingInterceptor loggingInterceptor = OkHttpLoggingInterceptor.create();
 
         for (Map.Entry<String, ApiConfiguration> entry : pluginConfig.getApis().entrySet()) {
             final String apiName = entry.getKey();
@@ -118,6 +120,7 @@ public final class AWSApiPlugin extends ApiPlugin<Map<String, OkHttpClient>> {
             final EndpointType endpointType = apiConfiguration.getEndpointType();
             final OkHttpClient.Builder builder = new OkHttpClient.Builder();
             builder.addNetworkInterceptor(UserAgentInterceptor.using(UserAgent::string));
+            builder.addInterceptor(loggingInterceptor);
             if (apiConfiguration.getAuthorizationType() != AuthorizationType.NONE) {
                 builder.addInterceptor(interceptorFactory.create(apiConfiguration));
             }

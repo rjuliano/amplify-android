@@ -25,6 +25,7 @@ dependencies {
     implementation dependency.aws.mobileclient
     implementation dependency.gson
     implementation dependency.okhttp.okhttp
+    implementation dependency.okhttp.loginterceptor
     implementation dependency.threetenabp
 
     testImplementation project(path: ':testutils')
