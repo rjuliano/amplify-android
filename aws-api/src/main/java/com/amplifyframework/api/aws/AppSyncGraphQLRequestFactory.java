@@ -77,7 +77,7 @@ public final class AppSyncGraphQLRequestFactory {
         try {
             return AppSyncGraphQLRequest.builder()
                     .modelClass(modelClass)
-                    .operationType(QueryType.GET)
+                    .operation(QueryType.GET)
                     .responseType(modelClass)
                     .setVariable("id", "ID!", objectId)
                     .build();
@@ -142,7 +142,7 @@ public final class AppSyncGraphQLRequestFactory {
             String modelName = ModelSchema.fromModelClass(modelClass).getName();
             AppSyncGraphQLRequest.Builder builder = AppSyncGraphQLRequest.builder()
                     .modelClass(modelClass)
-                    .operationType(QueryType.LIST)
+                    .operation(QueryType.LIST)
                     .responseType(responseType);
 
             if (!QueryPredicates.all().equals(predicate)) {
@@ -184,7 +184,7 @@ public final class AppSyncGraphQLRequestFactory {
             String graphQlTypeName = schema.getName();
 
             AppSyncGraphQLRequest.Builder builder = AppSyncGraphQLRequest.builder()
-                    .operationType(type)
+                    .operation(type)
                     .modelClass(modelClass)
                     .responseType(modelClass);
 
@@ -232,7 +232,7 @@ public final class AppSyncGraphQLRequestFactory {
         try {
             return AppSyncGraphQLRequest.builder()
                     .modelClass(modelClass)
-                    .operationType(subscriptionType)
+                    .operation(subscriptionType)
                     .responseType(modelClass)
                     .build();
         } catch (AmplifyException exception) {

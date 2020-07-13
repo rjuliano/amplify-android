@@ -19,7 +19,7 @@ import android.text.TextUtils;
 import androidx.core.util.ObjectsCompat;
 
 import com.amplifyframework.AmplifyException;
-import com.amplifyframework.api.graphql.OperationType;
+import com.amplifyframework.api.graphql.Operation;
 import com.amplifyframework.api.graphql.QueryType;
 import com.amplifyframework.core.model.Model;
 import com.amplifyframework.core.model.ModelSchema;
@@ -140,10 +140,10 @@ public final class SelectionSet {
          * @return selection set containing all of the fields of the provided model class
          * @throws AmplifyException if a ModelSchema cannot be created from the provided model class.
          */
-        public static SelectionSet fromModelClass(Class<? extends Model> clazz, OperationType operationType, int depth)
+        public static SelectionSet fromModelClass(Class<? extends Model> clazz, Operation operation, int depth)
                 throws AmplifyException {
             SelectionSet node = new SelectionSet(null, getModelFields(clazz, depth));
-            if (QueryType.LIST.equals(operationType)) {
+            if (QueryType.LIST.equals(operation)) {
                 node = wrapPagination(node);
             }
             return node;
