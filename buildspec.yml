@@ -26,7 +26,7 @@ phases:
 reports:
  amplify-android-unit-tests:
    files:
-     - ./*/build/reports/tests/testReleaseUnitTest
+     - ./*/build/reports/test-results/testReleaseUnitTest/**/*
    discard-paths: no
    file-format: JUNIT
 artifacts:
