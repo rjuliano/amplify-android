@@ -23,14 +23,12 @@ phases:
       - echo 'Post-build phase starting'
     finally:
       - echo 'Post-build phase completed.'
-# reports:
-#  amplify-android-unit-tests:
-#    files:
-#      - location
-#      - location
-#    base-directory: location
-#    discard-paths: no | yes
-#    file-format: report-format
+reports:
+ amplify-android-unit-tests:
+   files:
+     - ./*/build/reports/tests/testReleaseUnitTest
+   discard-paths: no
+   file-format: JUNIT
 artifacts:
  files:
    - '**/*release.aar'
