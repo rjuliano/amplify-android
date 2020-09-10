@@ -3,9 +3,6 @@ env:
   shell: /bin/sh
 phases:
   install:
-#    runtime-versions:
-#      android: 29
-#      nodejs: 12
     commands:
       - echo 'Install phase starting'
     finally:
@@ -34,12 +31,11 @@ phases:
 #    base-directory: location
 #    discard-paths: no | yes
 #    file-format: report-format
-#artifacts:
-#  files:
-#    - location
-#    - location
-#  name: artifact-name
-#  discard-paths: no | yes
+artifacts:
+ files:
+   - **/*release.aar
+ name: amplify-android-release
+ discard-paths: yes
 #  base-directory: location
 #  secondary-artifacts:
 #    artifactIdentifier:
@@ -55,7 +51,3 @@ phases:
 #        - location
 #      discard-paths: no | yes
 #      base-directory: location
-#cache:
-#  paths:
-#    - path
-#    - path
