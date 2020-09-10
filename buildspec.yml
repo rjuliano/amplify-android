@@ -28,7 +28,7 @@ reports:
    files:
      - ./*/build/reports/test-results/testReleaseUnitTest/**/*
    discard-paths: no
-   file-format: JUNIT
+   file-format: JUNITXML
 artifacts:
  files:
    - '**/*release.aar'
