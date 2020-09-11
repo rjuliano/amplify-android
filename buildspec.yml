@@ -22,14 +22,15 @@ phases:
     commands:
       - echo 'Post-build phase starting'
       - echo $CODEBUILD_SRC_DIR
+      - cp ./*/build/test-results/testReleaseUnitTest/*.xml ./allTests
       - find ./*/build/test-results -name "*.xml"
     finally:
       - echo 'Post-build phase completed.'
 reports:
   amplify-android-unit-tests:
     files:
-      - aws-api/build/test-results/testReleaseUnitTest/**/*.xml
-    discard-paths: no
+      - allTests/*
+    discard-paths: yes
     file-format: JUNITXML
 artifacts:
   files:
