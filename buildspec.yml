@@ -28,7 +28,7 @@ phases:
 reports:
   amplify-android-unit-tests:
     files:
-      - $CODEBUILD_SRC_DIR/*/build/test-results/testReleaseUnitTest/**/*
+      - $CODEBUILD_SRC_DIR/aws-api/build/test-results/testReleaseUnitTest/**/*.xml
     discard-paths: no
     file-format: JUNITXML
 artifacts:
