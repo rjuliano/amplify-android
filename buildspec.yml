@@ -21,9 +21,9 @@ phases:
   post_build:
     commands:
       - echo 'Post-build phase starting'
-      - echo $CODEBUILD_SRC_DIR
+      - pwd
+      - mkdir allTests
       - cp ./*/build/test-results/testReleaseUnitTest/*.xml ./allTests
-      - find ./*/build/test-results -name "*.xml"
     finally:
       - echo 'Post-build phase completed.'
 reports:
