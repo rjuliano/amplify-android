@@ -21,12 +21,14 @@ phases:
   post_build:
     commands:
       - echo 'Post-build phase starting'
+      - echo $CODEBUILD_SRC_DIR
+      - find ./*/build/test-results -name "*.xml"
     finally:
       - echo 'Post-build phase completed.'
 reports:
  amplify-android-unit-tests:
    files:
-     - ./*/build/reports/test-results/testReleaseUnitTest/**/*
+     - $CODEBUILD_SRC_DIR/build/test-results/testReleaseUnitTest/**/*
    discard-paths: no
    file-format: JUNITXML
 artifacts:
