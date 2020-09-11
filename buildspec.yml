@@ -26,16 +26,16 @@ phases:
     finally:
       - echo 'Post-build phase completed.'
 reports:
- amplify-android-unit-tests:
-   files:
-     - $CODEBUILD_SRC_DIR/build/test-results/testReleaseUnitTest/**/*
-   discard-paths: no
-   file-format: JUNITXML
+  amplify-android-unit-tests:
+    files:
+      - $CODEBUILD_SRC_DIR/*/build/test-results/testReleaseUnitTest/**/*
+    discard-paths: no
+    file-format: JUNITXML
 artifacts:
- files:
-   - '**/*release.aar'
- name: amplify-android-release
- discard-paths: yes
+  files:
+    - '**/*.apk'
+  name: amplify-android-cat-apks
+  discard-paths: yes
 #  base-directory: location
 #  secondary-artifacts:
 #    artifactIdentifier:
