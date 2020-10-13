@@ -44,8 +44,8 @@ reports:
       - allTests/*
     discard-paths: yes
     file-format: JUNITXML
-#artifacts:
-#  files:
-#    - '**/*.apk'
-#  name: amplify-android-cat-apks
-#  discard-paths: yes
+artifacts:
+ files:
+   - '**/*.apk'
+ name: amplify-android-cat-apks
+ discard-paths: yes
