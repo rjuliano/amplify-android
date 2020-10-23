@@ -15,18 +15,43 @@ env:
   shell: /bin/sh
 phases:
   install:
+    runtime-versions:
+      java: corretto8
+      android: 29
+      nodejs: 12
     commands:
       - echo 'Install phase starting'
+      - export APP_ID="`aws amplify list-apps --output text --query \"apps[?name == 'InstrumentedTests'].appId\"`"
+      - npm install -g @aws-amplify/cli@4.30.0
     finally:
       - echo 'Install phase completed.'
   pre_build:
     commands:
       - echo 'Pre-build phase starting'
+      - >
+        amplify pull \
+            --amplify "{\"projectName\":\"InstrumentedTestsBackend\",\"appId\":\"$APP_ID\",\"envName\":\"main\",\"defaultEditor\":\"code\"}" \
+            --frontend "{\"frontend\":\"android\",\"config\":{\"ResDir\":\"aws-datastore/src/androidTest/res\"}}" \
+            --providers "{\"awscloudformation\":{\"configLevel\":\"general\",\"useProfile\":false,\"region\":\"us-east-1\"}}" --yes \
+            --yes
+      - >
+        targets=("core/src/androidTest/res" "aws-analytics-pinpoint/src/androidTest/res" "aws-api/src/androidTest/res" "aws-predictions/src/androidTest/res" "aws-storage-s3/src/androidTest/res")
+          start_index=1
+          number_of_targets=${#targets[@]}
+          end_index=$(($number_of_targets))
+
+          for target_dir in "${targets[@]}"
+          do
+            echo "Copying config files to $target_dir "
+            mkdir -p "$target_dir"
+            cp -R aws-datastore/src/androidTest/res/* $target_dir
+          done
     finally:
       - echo 'Pre-build phase completed.'
   build:
     commands:
       - echo 'Build phase starting'
+      - JAVA_HOME=$JDK_8_HOME ./gradlew build
       - JAVA_HOME=$JDK_8_HOME ./gradlew assembleAndroidTest
     finally:
       - echo 'Build phase completed.'
@@ -45,7 +70,7 @@ reports:
     discard-paths: yes
     file-format: JUNITXML
 artifacts:
- files:
-   - '**/*.apk'
- name: amplify-android-cat-apks
- discard-paths: yes
+  files:
+    - '**/*.apk'
+  name: AmplifyAndroidCatApks
+  discard-paths: yes
